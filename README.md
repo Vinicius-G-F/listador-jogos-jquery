@@ -9,7 +9,7 @@ Projeto pessoal feito para aprender como o j-query funciona.
 | 🚀 URL         | **https://game-saver.vercel.app/dist/index.html** |
 | 🔥 Desafio     | Criar um site que faz um crud usando jquery e json-server |
 
-![](./src/tumb.webp#vitrinedev)
+![](./src/tumb.png#vitrinedev)
 
 ## Detalhes do projeto
 
