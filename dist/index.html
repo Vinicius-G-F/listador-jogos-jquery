@@ -1,0 +1,101 @@
+<!-- Fazer um site para listar jogo que talvez eu jogue esse ano -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listador de jogos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <main>
+        <form id="form-adicionar-jogo" class="d-flex flex-column align-items-center mt-5 border m-5 rounded p-5 shadow-lg p-3 bg-body-tertiary"
+            style="background-color: #8b83a8">
+            <h1 onclick="()=> console.log('oi?')" class="mb-5">Vamos criar uma lista de jogos que talvez você queira
+                jogar esse ano?</h1>
+
+            <div class="form-floating w-25 d-flex flex-column mb-3 shadow bg-body-tertiary">
+                <input required type="text" class="form-control border-0" id="nome"
+                    placeholder="Adicione o nome do jogo" aria-label="nome"
+                    style="background-color: rgb(124, 95, 160);">
+                <label for="nome">Adicione o nome do jogo</label>
+            </div>
+            <div class="w-25 d-flex flex-column mb-3 shadow bg-body-tertiary">
+                <select required class="form-select border-0" id="categorias" aria-label="categorias"
+                    style="background-color: rgb(124, 95, 160);">
+                    <option value="">Escolha uma categoria</option>
+                    <option value="Ação / Combate">Ação / Combate</option>
+                    <option value="Imersivo">Imersivo</option>
+                    <option value="jogo online">jogo online</option>
+                    <option value="Horror / Survival">Horror / Survival</option>
+                    <option value="Estratégia">Estratégia</option>
+                    <option value="Esportes">Esportes</option>
+                </select>
+            </div>
+            <div class="w-25 d-flex flex-column mb-3 shadow bg-body-tertiary">
+                <select required class="form-select border-0" id="plataformas" aria-label="plataformas"
+                    style="background-color: rgb(124, 95, 160);">
+                    <option value="" selected>Escolha a plataforma desse jogo</option>
+                    <option value="PC">PC</option>
+                    <option value="Xbox">Xbox</option>
+                    <option value="PS">PS</option>
+                    <option value="Nintendo">Nintendo</option>
+                </select>
+            </div>
+            <div class="w-25 d-flex flex-column mb-5">
+                <div class="row">
+                    <label for="prioridade" class="form-label h5 col-10">Defina a posição na fila</label>
+                    <div class="col-2 border border-primary-subtle border-dark d-flex align-items-center justify-content-center"
+                        id="range-value">1</div>
+                </div>
+                <input required type="range" min="1" value="1" class="form-range input-range" id="prioridade"
+                    aria-label="prioridade">
+            </div>
+            <button type="submit" class="btn btn-success py-3 px-5">Adcionar jogo</button>
+        </form>
+    </main>
+
+    <!-- Botão para vizualizar lista -->
+    <div data-bs-toggle="modal" data-bs-target="#listaModal" class="mostrar-lista-btn btn d-none" id="mostrar-lista-btn">
+        <i class="bi bi-journals"></i>
+        <span id="itens-adicionados"></span>
+    </div>
+
+    <!-- Modal que irá mostrar a lista -->
+    <div class="modal fade" id="listaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="form-editar-jogo">
+                <div class="modal-content bg-beige">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Aqui está a sua lista:</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul id="lista-modal">
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary bg-roxo" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" id="botao-salvar" class="btn btn-success d-none">Salvar Alterações</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="bundle.js"></script>
+    
+</body>
+
+</html>

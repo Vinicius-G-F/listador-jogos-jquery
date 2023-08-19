@@ -1,0 +1,11 @@
+{
+  "jogos": [
+    {
+      "nome": "Shadow of the colossus",
+      "categoria": "Imersivo",
+      "plataforma": "PS",
+      "prioridade": "1",
+      "id": "38ec4f34-1c03-435b-8c5b-88fe6e209c03"
+    }
+  ]
+}
