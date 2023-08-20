@@ -1,12 +1,13 @@
 import IJogo from "../interfaces/IJogo" 
+import modalView from "../views/modalView";
 import comunicaAPIController from "./comunicaAPIController";
 
-export default class listagemController {
-    private jogoServive: comunicaAPIController= new comunicaAPIController()
+export default class listagemController extends comunicaAPIController {
     private listaDeJogos: IJogo[] = [];
 
     constructor(){
-        this.pegaListaService()
+        super()
+        this.pegaListaInicial()
     }
 
     public submeterDados(jogo: IJogo ){
@@ -15,8 +16,8 @@ export default class listagemController {
         }
         
         this.listaDeJogos.push(jogo);
-        this.jogoServive.adicionaJogo(jogo)
-        this.adicionaJogoNaLista()
+        this.adicionaJogoAPI(jogo)
+        this.adicionaJogoBotaoCaderno()
 
     }
 
@@ -29,7 +30,7 @@ export default class listagemController {
             $('#listaModal').modal('hide');
         }
         $("#itens-adicionados").text(this.listaDeJogos.length)
-        this.jogoServive.deletaJogo(id)
+        this.deletaJogoAPI(id)
     }
 
     public ativarEdicao (idLI: string, idDoBotao: string) {
@@ -50,7 +51,7 @@ export default class listagemController {
                     }
                     return item
                 })
-                this.jogoServive.atulizaJogo(jogo)
+                this.atulizaJogoAPI(jogo)
             })
             this.carregarLista()
         }
@@ -101,7 +102,7 @@ export default class listagemController {
     }
     
 
-    private adicionaJogoNaLista (){
+    private adicionaJogoBotaoCaderno (){
         $("#mostrar-lista-btn").removeClass("d-none")
         $("#itens-adicionados").text(this.listaDeJogos.length)
         this.carregarLista()
@@ -228,11 +229,11 @@ export default class listagemController {
         `
     }
 
-    private pegaListaService (){
-        this.jogoServive.pegaLista()
+    private pegaListaInicial (){
+        this.pegaListaAPI()
         .then((listaDeJogos)=> {
             this.listaDeJogos = listaDeJogos
-            this.adicionaJogoNaLista()
+            this.adicionaJogoBotaoCaderno()
         })
           .catch(function(error) {
             console.error('Erro ao obter lista de jogos', error);

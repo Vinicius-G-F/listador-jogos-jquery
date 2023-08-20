@@ -1,10 +1,10 @@
 import IJogo from '../interfaces/IJogo';
 
 export default class comunicaAPIController {
-    public pegaLista() {
+    protected pegaListaAPI() {
         return $.get('http://localhost:3000/jogos')
     }
-    public adicionaJogo(jogo: IJogo){
+    protected adicionaJogoAPI(jogo: IJogo){
         $.ajax({
                 type: 'POST',
                 url: 'http://localhost:3000/jogos',
@@ -21,7 +21,7 @@ export default class comunicaAPIController {
               });
     }
 
-    public atulizaJogo(jogo: IJogo){
+    protected atulizaJogoAPI(jogo: IJogo){
         $.ajax({
             type: 'PUT',
             url: 'http://localhost:3000/jogos/' + jogo.id,
@@ -37,7 +37,7 @@ export default class comunicaAPIController {
             }
         });
     }
-    public deletaJogo(id: string){
+    protected deletaJogoAPI(id: string){
         $.ajax({
             type: 'DELETE',
             url: 'http://localhost:3000/jogos/' + id, 
