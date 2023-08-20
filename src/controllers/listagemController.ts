@@ -53,15 +53,6 @@ export default class listagemController {
                 this.jogoServive.atulizaJogo(jogo)
             })
             this.carregarLista()
-        } else {
-            this.listaDeJogos = this.listaDeJogos.map(item=>{
-                if(item.id === jogo.id){
-                    return jogo
-                }
-                return item
-            })
-            this.carregarLista()
-
         }
     }
 
@@ -240,10 +231,9 @@ export default class listagemController {
     private pegaListaService (){
         this.jogoServive.pegaLista()
         .then((listaDeJogos)=> {
-            listaDeJogos.forEach((jogo: IJogo)=>{
-                this.submeterDados(jogo)
-            })
-          })
+            this.listaDeJogos = listaDeJogos
+            this.adicionaJogoNaLista()
+        })
           .catch(function(error) {
             console.error('Erro ao obter lista de jogos', error);
           });

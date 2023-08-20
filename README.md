@@ -17,5 +17,6 @@ Projeto feito com fins acadêmicos, o nome do site foi sugerido pelo chatgpt, a 
 
 Comandos para subir o projeto em um servidor local:
 
+npm i
 json-server --watch db.json --port 3000
 npx webpack serve

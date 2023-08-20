@@ -2,10 +2,17 @@
   "jogos": [
     {
       "nome": "Shadow of the colossus",
-      "categoria": "Imersivo",
-      "plataforma": "PS",
+      "categoria": "Ação / Combate",
+      "plataforma": "Xbox",
       "prioridade": "1",
-      "id": "38ec4f34-1c03-435b-8c5b-88fe6e209c03"
+      "id": "fe8b687e-ede9-44b1-8a79-ace309c161ed"
+    },
+    {
+      "nome": "genshin impact",
+      "categoria": "jogo online",
+      "plataforma": "PC",
+      "prioridade": "9",
+      "id": "0f1c38d4-557e-407c-9d30-25dba7cf71ce"
     }
   ]
 }
