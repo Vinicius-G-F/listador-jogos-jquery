@@ -1,4 +1,5 @@
 import IJogo from "../interfaces/IJogo" 
+import temValorRepetidoListas from "../util/comparaListasJogos";
 import modalView from "../views/modalView";
 import botaoCadernoController from "./botaoCadernoController";
 import comunicaAPIController from "./comunicaAPIController";
@@ -16,11 +17,12 @@ export default class listagemController extends comunicaAPIController {
     }
 
     public submeterDados(jogo: IJogo ){
-        if(!this.validaDados(jogo)){
+        if(!this.validaJogoOuJogos(jogo)){
             return
         }
         
         this.listaDeJogos.push(jogo);
+        this.ordenarLista()
         this.adicionaJogoAPI(jogo)
         this.botaoCaderno.ativarBotaoCaderno(this.listaDeJogos)
         this.carregarLista()
@@ -44,96 +46,99 @@ export default class listagemController extends comunicaAPIController {
 
     }
 
-    public editarDados(jogo: IJogo | IJogo[]) {
-        if(!this.validaDados(jogo)){
+    public editarDados(jogos: IJogo[]) {
+        if(!this.validaJogoOuJogos(jogos)){
             return
         }
-        if(jogo instanceof Array){
-            jogo.forEach(jogo=>{
-                this.listaDeJogos = this.listaDeJogos.map(item=>{
-                    if(item.id === jogo.id){
-                        return jogo
-                    }
-                    return item
-                })
-                this.atulizaJogoAPI(jogo)
+
+        jogos.forEach(jogo=>{
+            this.listaDeJogos = this.listaDeJogos.map(item=>{
+                if(item.id === jogo.id){
+                    return jogo
+                }
+                return item
             })
-            this.carregarLista()
-        }
+            this.atulizaJogoAPI(jogo)
+        })
+        this.ordenarLista()
+        this.carregarLista()
+
     }
 
     public carregarLista(){
         this.modalView.carregarListaModal(this.listaDeJogos)
     }
 
-    private validaDados(jogo: IJogo | IJogo[]){
-        if(this.jogoDuplicado(jogo)){
-            alert("Esse jogo ja foi adicionado.")
-            return false
-        }
-        if(this.jogoNaMesmaPosicao(jogo)) {
-            alert("Essa posição ja esta em uso.")
-            return false
-        }
-        return true
+    private validaJogoOuJogos(jogo: IJogo | IJogo[]){
+        if(jogo instanceof Array){
+            const nomeRepetido = temValorRepetidoListas()
+            const prioridadeRepetido = temValorRepetidoListas()
+
+            if(jogo.length === 1){
+                if(this.temNomeRepetidoJogo(jogo[0])){
+                    console.log("repetiu")
+                    alert("Esse jogo ja foi adicionado!")
+                    return false
+                }
+
+                if(this.temPrioridadeRepetidoJogo(jogo[0])) {
+                    alert("Esse lugar na fila esta ocupado!")
+                    return false
+                } 
+            } else {
+                if(nomeRepetido(jogo, this.listaDeJogos, "nome")){
+                    alert("Esse jogo ja foi adicionado!")
+                    return false
+                }
         
+                if(prioridadeRepetido(jogo, this.listaDeJogos, "prioridade")){
+                    alert("Esse lugar na fila esta ocupado!")
+                    return false
+                }}
+
+            return true
+            } else {
+                if(this.temNomeRepetidoJogo(jogo)){
+                    alert("Esse jogo ja foi adicionado!")
+                    return false
+                }
+
+                if(this.temPrioridadeRepetidoJogo(jogo)) {
+                    alert("Esse lugar na fila esta ocupado!")
+                    return false
+                }
+                return true
+            }
     }
 
-    private jogoDuplicado (jogoEnviado: IJogo | IJogo[])  {
-        if(jogoEnviado instanceof Array){
-            let repetiu = false
-            jogoEnviado.forEach(jogoAhVerificar=>{
-                this.listaDeJogos.forEach((jogoGuardado, indexJogoGuardado) =>{
-                    if(jogoGuardado.id === jogoAhVerificar.id){
-                        return repetiu
-                    }
-
-                    if(jogoEnviado[indexJogoGuardado]?.id === jogoGuardado.id){
-                        return repetiu = jogoEnviado[indexJogoGuardado].nome === jogoAhVerificar.nome
-                    }
-
-                    return repetiu = jogoGuardado.nome === jogoAhVerificar.nome
-            })})
-            return repetiu
-        } else {
-        
-        return this.listaDeJogos.some(jogo =>{
-            if(jogo.id === jogoEnviado.id){
-                return false
-            }
-            return jogo.nome === jogoEnviado.nome
-
-        })}
-
+    private ordenarLista(){
+        this.listaDeJogos = this.listaDeJogos.sort((jogo1, jogo2)=> {
+            if (jogo1.prioridade > jogo2.prioridade) {
+                return 1;
+              }
+              if (jogo1.prioridade < jogo2.prioridade) {
+                return -1;
+              }
+              return 0;
+        })
     }
 
-    private jogoNaMesmaPosicao (jogoEnviado: IJogo | IJogo[])  {
-        if(jogoEnviado instanceof Array){
-
-            let repetiu = false
-
-            jogoEnviado.forEach(jogoAhVerificar=>{
-                this.listaDeJogos.forEach((jogoGuardado, indexJogoGuardado) =>{
-                    if(jogoGuardado.id === jogoAhVerificar.id){
-                        return repetiu
-                    }
-
-                    if(jogoEnviado[indexJogoGuardado]?.id === jogoGuardado.id){
-                        return repetiu = jogoEnviado[indexJogoGuardado].prioridade === jogoAhVerificar.prioridade
-                    }
-
-                    return repetiu = jogoGuardado.prioridade === jogoAhVerificar.prioridade
-            })})
-
-            return repetiu
-
-        } else {
-        return this.listaDeJogos.some(jogo=>{
-            if(jogo.id === jogoEnviado.id){
+    private temNomeRepetidoJogo(jogo: IJogo): boolean{
+        return this.listaDeJogos.some(jogoGuardado => {
+            if(jogo.id === jogoGuardado.id){
                 return false
             }
-            return jogo.prioridade === jogoEnviado.prioridade
-        })}
+            return jogo.nome === jogoGuardado.nome
+        })
+    }
+    
+    private temPrioridadeRepetidoJogo(jogo: IJogo): boolean{
+        return this.listaDeJogos.some(jogoGuardado => {
+            if(jogo.id === jogoGuardado.id){
+                return false
+            }
+            return jogo.prioridade === jogoGuardado.prioridade
+        })
     }
 
     private pegaListaInicial (){
@@ -143,6 +148,7 @@ export default class listagemController extends comunicaAPIController {
                 return
             }
             this.listaDeJogos = listaDeJogos
+            this.ordenarLista()
             this.botaoCaderno.ativarBotaoCaderno(this.listaDeJogos)
             this.carregarLista()
         })

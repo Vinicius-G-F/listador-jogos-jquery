@@ -1,11 +1,18 @@
 {
   "jogos": [
     {
-      "nome": "genshin impact",
-      "categoria": "jogo online",
+      "nome": "jogo 1",
+      "categoria": "Imersivo",
+      "plataforma": "Xbox",
+      "prioridade": "2",
+      "id": "11e167c6-a011-4bab-8c4d-555892b362bd"
+    },
+    {
+      "nome": "jogo 2",
+      "categoria": "Imersivo",
       "plataforma": "PC",
-      "prioridade": "1",
-      "id": "ea51edca-bfd7-49e8-b8be-e639df6f716c"
+      "prioridade": "25",
+      "id": "ca284d6f-3b67-4560-a34a-3ada6264e1e2"
     }
   ]
 }

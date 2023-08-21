@@ -3,7 +3,7 @@ import IJogo from "../../../interfaces/IJogo";
 
 export default function botaoSubmit () {
     return (listagem: listagemController)=>{
-        $("#form-editar-jogo").off("submit").on("submit", function(e){
+        $("#form-editar-jogo").on("submit", function(e){
             e.preventDefault()
             let jogos: IJogo[] = []
             let listaDadoForm = []
