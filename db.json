@@ -13,6 +13,13 @@
       "plataforma": "PC",
       "prioridade": "25",
       "id": "ca284d6f-3b67-4560-a34a-3ada6264e1e2"
+    },
+    {
+      "nome": "jogo 50",
+      "categoria": "Imersivo",
+      "plataforma": "PC",
+      "prioridade": "1",
+      "id": "7ba52d1b-e587-4873-8153-0655825e5ca4"
     }
   ]
 }

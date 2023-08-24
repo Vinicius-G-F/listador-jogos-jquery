@@ -11,7 +11,6 @@ export default class comunicaAPIController {
                 data: JSON.stringify(jogo),
                 contentType: 'application/json', 
                 success: function(response) {
-                  console.log('Solicitação POST bem-sucedida', response);
 
                 },
                 error: function(error) {
@@ -28,7 +27,6 @@ export default class comunicaAPIController {
             data: JSON.stringify(jogo),
             contentType: 'application/json',
             success: function(response) {
-            console.log('Solicitação PUT bem-sucedida', response);
 
             },
             error: function(error) {
@@ -42,7 +40,6 @@ export default class comunicaAPIController {
             type: 'DELETE',
             url: 'http://localhost:3000/jogos/' + id, 
             success: function(response) {
-            console.log('Solicitação DELETE bem-sucedida', response);
 
             },
             error: function(error) {

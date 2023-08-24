@@ -1,5 +1,6 @@
 import IJogo from "../interfaces/IJogo" 
 import temValorRepetidoListas from "../util/comparaListasJogos";
+import alertView from "../views/alertView";
 import modalView from "../views/modalView";
 import botaoCadernoController from "./botaoCadernoController";
 import comunicaAPIController from "./comunicaAPIController";
@@ -20,14 +21,19 @@ export default class listagemController extends comunicaAPIController {
         if(!this.validaJogoOuJogos(jogo)){
             return
         }
-        
+
+
         this.listaDeJogos.push(jogo);
         this.ordenarLista()
-        this.adicionaJogoAPI(jogo)
+        try{
+            this.adicionaJogoAPI(jogo)
+        } catch(e){
+            console.log(e)
+        }
         this.botaoCaderno.ativarBotaoCaderno(this.listaDeJogos)
         this.carregarLista()
         this.fromPrincipal.apagarFormulario()
-
+        this.exibeAlerta("success", "Jogo adicionado com sucesso!")
     }
 
     public removerJogoDaLista (id: string) {
@@ -38,7 +44,12 @@ export default class listagemController extends comunicaAPIController {
             this.modalView.fecharModal()
         }
         this.botaoCaderno.botaoCadernoQuantidade(this.listaDeJogos.length)
-        this.deletaJogoAPI(id)
+        try {
+            this.deletaJogoAPI(id)
+        } catch(e){
+            console.log(e)
+        }
+        this.exibeAlerta("success", "Jogo removido com sucesso!")
     }
 
     public ativarEdicao (idLI: string, idDoBotao: string) {
@@ -58,15 +69,24 @@ export default class listagemController extends comunicaAPIController {
                 }
                 return item
             })
-            this.atulizaJogoAPI(jogo)
+            try{
+                this.atulizaJogoAPI(jogo)
+            } catch(e){
+                console.log(e)
+            }
         })
         this.ordenarLista()
         this.carregarLista()
-
+        this.exibeAlerta("success", "Jogo(s) alterado(s) com sucesso!")
     }
 
     public carregarLista(){
         this.modalView.carregarListaModal(this.listaDeJogos)
+    }
+
+    private exibeAlerta(tipo: "success" | "danger", mensagem: string){
+        const alerta = new alertView(tipo, mensagem)
+        alerta.exibeAlerta()
     }
 
     private validaJogoOuJogos(jogo: IJogo | IJogo[]){
@@ -77,34 +97,34 @@ export default class listagemController extends comunicaAPIController {
             if(jogo.length === 1){
                 if(this.temNomeRepetidoJogo(jogo[0])){
                     console.log("repetiu")
-                    alert("Esse jogo ja foi adicionado!")
+                    this.exibeAlerta("danger", "Esse jogo ja foi adicionado!")
                     return false
                 }
 
                 if(this.temPrioridadeRepetidoJogo(jogo[0])) {
-                    alert("Esse lugar na fila esta ocupado!")
+                    this.exibeAlerta("danger", "Esse lugar na fila esta ocupado!")
                     return false
                 } 
             } else {
                 if(nomeRepetido(jogo, this.listaDeJogos, "nome")){
-                    alert("Esse jogo ja foi adicionado!")
+                    this.exibeAlerta("danger", "Esse jogo ja foi adicionado!")
                     return false
                 }
         
                 if(prioridadeRepetido(jogo, this.listaDeJogos, "prioridade")){
-                    alert("Esse lugar na fila esta ocupado!")
+                    this.exibeAlerta("danger", "Esse lugar na fila esta ocupado!")
                     return false
                 }}
 
             return true
             } else {
                 if(this.temNomeRepetidoJogo(jogo)){
-                    alert("Esse jogo ja foi adicionado!")
+                    this.exibeAlerta("danger", "Esse jogo ja foi adicionado!")
                     return false
                 }
 
                 if(this.temPrioridadeRepetidoJogo(jogo)) {
-                    alert("Esse lugar na fila esta ocupado!")
+                    this.exibeAlerta("danger", "Esse lugar na fila esta ocupado!")
                     return false
                 }
                 return true
