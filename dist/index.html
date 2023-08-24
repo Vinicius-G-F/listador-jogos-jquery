@@ -16,18 +16,18 @@
 <body>
 
     <main>
-        <form id="form-adicionar-jogo" class="d-flex flex-column align-items-center mt-5 border m-5 rounded p-5 shadow-lg p-3 bg-body-tertiary"
+        <form id="form-adicionar-jogo" class="d-flex flex-column row border pb-5 m-lg-5 rounded p-lg-5 shadow-lg p-2 bg-body-tertiary px-0"
             style="background-color: #8b83a8">
-            <h1 onclick="()=> console.log('oi?')" class="mb-5">Vamos criar uma lista de jogos que talvez você queira
+            <h1 class="col-10 col-lg-12 mb-5 mx-auto text-center">Vamos criar uma lista de jogos que talvez você queira
                 jogar esse ano?</h1>
-
-            <div class="form-floating w-25 d-flex flex-column mb-3 shadow bg-body-tertiary">
+            
+            <div class="col-10 col-sm-6 col-lg-5 mx-auto form-floating d-flex flex-column mb-3 shadow bg-body-tertiary p-0">
                 <input required type="text" class="form-control border-0" id="nome"
                     placeholder="Adicione o nome do jogo" aria-label="nome"
                     style="background-color: rgb(124, 95, 160);">
                 <label for="nome">Adicione o nome do jogo</label>
             </div>
-            <div class="w-25 d-flex flex-column mb-3 shadow bg-body-tertiary">
+            <div class="col-10 col-sm-6 col-lg-5 mx-auto d-flex flex-column mb-3 shadow bg-body-tertiary p-0">
                 <select required class="form-select border-0" id="categorias" aria-label="categorias"
                     style="background-color: rgb(124, 95, 160);">
                     <option value="">Escolha uma categoria</option>
@@ -39,7 +39,7 @@
                     <option value="Esportes">Esportes</option>
                 </select>
             </div>
-            <div class="w-25 d-flex flex-column mb-3 shadow bg-body-tertiary">
+            <div class="col-10 col-sm-6 col-lg-5 mx-auto d-flex flex-column mb-3 shadow bg-body-tertiary p-0">
                 <select required class="form-select border-0" id="plataformas" aria-label="plataformas"
                     style="background-color: rgb(124, 95, 160);">
                     <option value="" selected>Escolha a plataforma desse jogo</option>
@@ -49,7 +49,7 @@
                     <option value="Nintendo">Nintendo</option>
                 </select>
             </div>
-            <div class="w-25 d-flex flex-column mb-5">
+            <div class="col-10 col-sm-6 col-lg-5 mx-auto d-flex flex-column mb-5">
                 <div class="row">
                     <label for="prioridade" class="form-label h5 col-10">Defina a posição na fila</label>
                     <div class="col-2 border border-primary-subtle border-dark d-flex align-items-center justify-content-center"
@@ -58,7 +58,7 @@
                 <input required type="range" min="1" value="1" class="form-range input-range" id="prioridade"
                     aria-label="prioridade">
             </div>
-            <button type="submit" class="btn btn-success py-3 px-5">Adcionar jogo</button>
+            <button type="submit" class="col-10 col-sm-6 col-md-4 col-lg-3 mx-auto btn btn-success py-3 px-5">Adcionar jogo</button>
         </form>
     </main>
 
